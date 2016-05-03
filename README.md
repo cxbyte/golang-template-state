@@ -1,0 +1,1 @@
+Example of State pattern on golang
