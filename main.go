@@ -1,7 +1,8 @@
 package main
 
 import (
-	"./states"
+	"golang-template-state/states"
+	"fmt"
 )
 
 type Order struct {
@@ -13,25 +14,31 @@ type OrderState struct {
 }
 
 // Process order
-func (o OrderState) Process() {
-	o.state.Process();
+func (o OrderState) Process() (string, error) {
+	return o.state.Process();
 }
 
 // Close order
-func (o OrderState) Close() {
-	o.state.Close();
+func (o OrderState) Close() (string, error) {
+	return o.state.Close();
 }
 
 func main()  {
 	o := Order{state: OrderState{states.NewState{}}};
-	o.state.Close();
-	o.state.Process();
+	message, err := o.state.Close();
+	fmt.Println(err);
+	message, err = o.state.Process();
+	fmt.Println(message);
 
 	o = Order{state: OrderState{states.ProcessState{}}};
-	o.state.Process();
-	o.state.Close();
+	message, err = o.state.Process();
+	fmt.Println(err);
+	message, err = o.state.Close();
+	fmt.Println(message);
 
 	o = Order{state: OrderState{states.CloseState{}}};
-	o.state.Process();
-	o.state.Close();
+	message, err = o.state.Process();
+	fmt.Println(err);
+	message, err = o.state.Close();
+	fmt.Println(err);
 }
